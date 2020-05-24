@@ -1,0 +1,9 @@
+map/
+family/
+library/
+guaji/
+guard/
+.idea/
+.DS_Store
+*.png
+log.txt
