@@ -11,7 +11,7 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-t", dest="time", type=str)
+parser.add_argument("-t", dest="time", type=str, default="06:00:00")
 args = parser.parse_args()
 
 logging.basicConfig(filename="log.txt", level=logging.INFO, filemode="w",
@@ -39,10 +39,10 @@ exit = Rect(2364, 40, 2490, 170)  # 4. 右上角的叉叉
 reconnect = Rect(1378, 964, 1700, 1050)  # 重新连接
 gap_time = 5 * 60  # 5 minutes
 root = "/Users/deepmind/projects/firestone/auto"
-reconnect_path = f"{root}/guaji/reconnect.png"
+reconnect_path = f"{root}{os.sep}guaji{os.sep}reconnect.png"
 # reconnect_path = "/Users/deepmind/projects/firestone/auto/guaji/reconnect.png"  # absolute path
-normal_path = f"{root}/guaji/normal.png"
-normal_family_path = f"{root}/guaji/normal_family.png"
+normal_path = f"{root}{os.sep}guaji{os.sep}normal.png"
+normal_family_path = f"{root}{os.sep}guaji{os.sep}normal_family.png"
 reconnect_times = 3
 global_connect = 0
 
@@ -69,7 +69,7 @@ def screenshot():
     # cur_time = datetime.datetime.now()
     # h, m, s, ms = cur_time.hour, cur_time.minute, cur_time.second, cur_time.microsecond
     # screen_path = f"screen_{h}_{m}_{s}_{ms}.png"
-    screen_path = f"{root}/screen.png"
+    screen_path = f"{root}{os.sep}screen.png"
     os.system(f"screencapture -x {screen_path}")
     screen = cv2.imread(screen_path)[..., ::-1]
 
@@ -187,11 +187,11 @@ class Guard():
 
 
 class Map():
-    icon_root = f"{root}/map/icon"
+    icon_root = f"{root}{os.sep}map{os.sep}icon"
 
     def __init__(self, refresh_time="06:00:00"):
         self.icon_num = range(1, 7)
-        self.icon_imgs = [cv2.imread(f"{self.icon_root}/icon_{i}.png", 0) for i in self.icon_num]
+        self.icon_imgs = [cv2.imread(f"{self.icon_root}{os.sep}icon_{i}.png", 0) for i in self.icon_num]
         self.h, self.w = 80, 100  # fixed icon shape
         self.pt_list_1 = [[], [], [], [], [], []]
         self.pt_list_2 = [[], [], [], [], [], []]
@@ -200,15 +200,15 @@ class Map():
         self.safe_point = Rect(2355, 913, 2476, 980)  # 点击此处无意义
         self.down_pixels = 400
         self.point_get = Rect(170, 400, 280, 450)  # 领取任务点
-        self.img_get = cv2.imread(f"{root}/map/get.png")[..., ::-1]
+        self.img_get = cv2.imread(f"{root}{os.sep}map{os.sep}get.png")[..., ::-1]
         self.point_ok = Rect(1110, 807, 1451, 875)  # 领取之后点击OK确认
         self.point_start = Rect(1085, 1309, 1461, 1395)  # 点击任务图标之后的弹窗
 
-        self.img_start_1 = cv2.imread(f"{root}/map/start_mission.png")[..., ::-1]  # 情形1，开始任务
-        self.img_start_2 = cv2.imread(f"{root}/map/already.png")[..., ::-1]   # 情形2，任务已开始
-        self.img_start_3 = cv2.imread(f"{root}/map/lack.png")[..., ::-1]  # 情形3，缺乏足够小分队
-        self.img_start_4 = cv2.imread(f"{root}/map/get_award.png")[..., ::-1]  # 情形4，任务已完成
-        self.img_start_5 = cv2.imread(f"{root}/map/mission_limit.png")[..., ::-1]  # 情形5，任务打到上限
+        self.img_start_1 = cv2.imread(f"{root}{os.sep}map{os.sep}start_mission.png")[..., ::-1]  # 情形1，开始任务
+        self.img_start_2 = cv2.imread(f"{root}{os.sep}map{os.sep}already.png")[..., ::-1]   # 情形2，任务已开始
+        self.img_start_3 = cv2.imread(f"{root}{os.sep}map{os.sep}lack.png")[..., ::-1]  # 情形3，缺乏足够小分队
+        self.img_start_4 = cv2.imread(f"{root}{os.sep}map{os.sep}get_award.png")[..., ::-1]  # 情形4，任务已完成
+        self.img_start_5 = cv2.imread(f"{root}{os.sep}map{os.sep}mission_limit.png")[..., ::-1]  # 情形5，任务打到上限
         self.ssim_t = 0.8
 
         # self.prior_tuple = [4, 2, 1, 0, 3, 5]  # 自定义优先级
@@ -319,7 +319,7 @@ class Map():
                 num_order = num_list_1[order_index][j]
                 _center = (w + self.w//2, h+self.h//2)
                 img = cv2.putText(img, str(num_order), _center, font, 1.2, (255, 0, 0), 10)
-        cv2.imwrite(f"{screen_folder}/{day}_{th}_{m}_{s}_{ms}_text_1.png", img[..., ::-1])
+        cv2.imwrite(f"{screen_folder}{os.sep}{day}_{th}_{m}_{s}_{ms}_text_1.png", img[..., ::-1])
         self.screen_down()
 
         screen = screenshot()
@@ -329,7 +329,7 @@ class Map():
                 num_order = num_list_2[order_index][j]
                 _center = (w + self.w//2, h+self.h//2)
                 img = cv2.putText(img, str(num_order), _center, font, 1.2, (255, 0, 0), 10)
-        cv2.imwrite(f"{screen_folder}/{day}_{th}_{m}_{s}_{ms}_text_2.png", img[..., ::-1])
+        cv2.imwrite(f"{screen_folder}{os.sep}{day}_{th}_{m}_{s}_{ms}_text_2.png", img[..., ::-1])
 
         click(exit)
 
@@ -501,8 +501,8 @@ class Case():
         self.safe_point = Rect(2355, 913, 2476, 980)  # 点击此处无意义
         self.threshold = 0.8
 
-        self.get_img = cv2.imread(f"{root}/map/get.png")[..., ::-1]
-        self.start_img = cv2.imread(f"{root}/map/start_mission.png")[..., ::-1]
+        self.get_img = cv2.imread(f"{root}{os.sep}map{os.sep}get.png")[..., ::-1]
+        self.start_img = cv2.imread(f"{root}{os.sep}map{os.sep}start_mission.png")[..., ::-1]
 
     def run(self):
         logging.info("开始进行地图脚本")
@@ -538,13 +538,13 @@ class Main():
         self.button_ride = Rect(237, 562, 495, 772)  # 工会界面中的远征按钮位置
         self.safe_area = Rect(2192, 1294, 2365, 1478)  # 城镇界面中的安全点击位置
         self.map_suggest = Rect(2470, 518, 2545, 580)  # 地图提示，表示地图有更新
-        self.img_suggest = cv2.imread(f"{root}/guaji/map_suggest.png")[..., ::-1]
+        self.img_suggest = cv2.imread(f"{root}{os.sep}guaji{os.sep}map_suggest.png")[..., ::-1]
         self.reconnect_img = cv2.imread(reconnect_path, 0)
         self.normal_img = cv2.imread(normal_path, 0)
         self.normal_family_img = cv2.imread(normal_family_path, 0)
         self.ssim_t = 0.8
 
-        self.exit_img = cv2.imread(f"{root}/guaji/exit.png")[..., ::-1]
+        self.exit_img = cv2.imread(f"{root}{os.sep}guaji{os.sep}exit.png")[..., ::-1]
         self.exit_max_times = 10
         self.exit_times = 1
 
