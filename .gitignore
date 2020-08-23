@@ -1,6 +1,6 @@
 .idea/
 .DS_Store
 log.txt
-screen.png
-screen_map/
+imgs/screen.png
+imgs/screen_map/
 __pycache__/

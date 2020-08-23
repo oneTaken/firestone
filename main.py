@@ -41,7 +41,7 @@ class Rect():
 exit = Rect(2364, 40, 2490, 170)  # 4. 右上角红色叉叉的坐标
 reconnect = Rect(1378, 964, 1700, 1050)  # 重新连接的坐标位置
 gap_time = 5 * 60  # 5 minutes
-root = "/Users/deepmind/projects/firestone/auto"
+root = os.path.join(os.getcwd(), "assets")
 reconnect_path = f"{root}{os.sep}guaji{os.sep}reconnect.png"
 # reconnect_path = "/Users/deepmind/projects/firestone/auto/guaji/reconnect.png"  # absolute path
 normal_path = f"{root}{os.sep}guaji{os.sep}normal.png"
