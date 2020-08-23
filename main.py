@@ -1,4 +1,5 @@
 # encodeing="utf-8"
+# 请到https://github.com/oneTaken/firestone获取最新脚本
 import pyautogui
 import time
 import numpy as np
@@ -168,9 +169,19 @@ class Library():
         self.case_101 = Rect(2271, 592, 2552, 719)  # 坦克专精
         self.case_102 = Rect(2274, 933, 2552, 1071)  # 治疗专精
 
+        # 科技树4
+        # 左半部分
+        self.case_1 = Rect(2, 750, 167, 1550)  # 所有主要属性
+        self.case_2 = Rect(660, 581, 1193, 718)  # 敌人无力
+        self.case_3 = Rect(660, 930, 1192, 1063)  # Boss无力
+        self.case_4 = Rect(1320, 408, 1850, 545)  # 坦克专精
+        self.case_5 = Rect(1320, 762, 1850, 892)  # 输出专精
+        self.case_6 = Rect(1317, 1104, 1850, 1241)  # 治疗专精
+        self.case_7 = Rect(1974, 760, 2508, 890)  # 炉石效果
+
         # 用这个来可控调节需要进行升级的科技
-        self.point1 = self.case_15
-        self.point2 = self.case_16
+        self.point1 = self.case_5
+        self.point2 = self.case_7
 
     def back2main(self):
         logging.info("从图书馆界面返回到挂机界面")
@@ -726,10 +737,11 @@ class Main():
                     pyautogui.press("M")
                     self.map.run()
             except KeyboardInterrupt:
+                print("手动退出脚本运行")
                 sys.exit(0)
             except:
+                print("脚本退出运行")
                 print(traceback.print_exc())
-                logging.info("map error")
 
             self.all_back2main()
             click(reconnect)  # 将鼠标返回到屏幕中间

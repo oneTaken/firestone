@@ -1,0 +1,4 @@
+opencv
+pyautogui
+numpy
+scikit-image
