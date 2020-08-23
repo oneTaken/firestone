@@ -1,11 +1,5 @@
-map/
-family/
-library/
-guaji/
-guard/
 .idea/
 .DS_Store
-*.png
 log.txt
 screen.png
 screen_map/
