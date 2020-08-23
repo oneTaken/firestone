@@ -1,3 +1,4 @@
+# encodeing="utf-8"
 import pyautogui
 import time
 import numpy as np
@@ -10,6 +11,7 @@ import traceback
 import sys
 import argparse
 
+pyautogui.FAILSAFE = False
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", dest="time", type=str, default="06:00:00")
 args = parser.parse_args()
@@ -35,8 +37,8 @@ class Rect():
         return img[self.start_r: self.end_r, self.start_c: self.end_c]
 
 
-exit = Rect(2364, 40, 2490, 170)  # 4. 右上角的叉叉
-reconnect = Rect(1378, 964, 1700, 1050)  # 重新连接
+exit = Rect(2364, 40, 2490, 170)  # 4. 右上角红色叉叉的坐标
+reconnect = Rect(1378, 964, 1700, 1050)  # 重新连接的坐标位置
 gap_time = 5 * 60  # 5 minutes
 root = "/Users/deepmind/projects/firestone/auto"
 reconnect_path = f"{root}{os.sep}guaji{os.sep}reconnect.png"
@@ -120,22 +122,55 @@ class Library():
         # self.case_3 = Rect(1354, 760, 1890, 895)  # 5. 陨石风暴，在金币雨往右660位置
         # self.case_4 = Rect(2016, 941, 2529, 1062)  # 6. 敌人血肉
 
-        # 4.png,右半部分科技
         r = 340
         c = 660
-        self.case_1 = Rect(66, 582, 593, 722)  # 1. 伤害值属性
-        self.case_2 = Rect(66, 582+r, 593, 722+r)  # 2. 敌人削弱
-        self.case_3 = Rect(66+c, 582, 593+c, 722)  # 3. 守护者战力
-        self.case_4 = Rect(66+c, 582+r, 593+c, 722+r)  # 4. Boss削弱
-        self.case_5 = Rect(66+c*2, 582, 593+c*2, 722)  # 5. 生命值属性
-        self.case_6 = Rect(66 + c*2, 582 + r, 593 + c*2, 722 + r)  # 6. 护甲值属性
-        self.case_7 = Rect(2032, 410, 2550, 550)  # 7. 怒气型英雄
-        self.case_8 = Rect(2032, 760, 2550, 900)  # 8. 法力型英雄
-        self.case_9 = Rect(2032, 1110, 2550, 1250)  # 9. 能量型英雄
+        # 科技树2
+        # 3.png, 左半部分科技
+        # self.case_1 = Rect(50, 411, 583, 540)  # 1. 跳过关卡
+        # self.case_2 = Rect(50, 411+r, 583, 540+r)  # 2. 所有主要属性
+        # self.case_3 = Rect(50, 411+r*2, 583, 540+r*2)  # 3. 转生
+        # self.case_4 = Rect(707, 588, 1237, 721)  # 4. 敌人无力
+        # self.case_5 = Rect(707, 933, 1237, 1064)  # 5. BOSS无力
+        # 4.png,右半部分科技
+        # self.case_1 = Rect(66, 582, 593, 722)  # 1. 伤害值属性
+        # self.case_2 = Rect(66, 582+r, 593, 722+r)  # 2. 敌人削弱
+        # self.case_3 = Rect(66+c, 582, 593+c, 722)  # 3. 守护者战力
+        # self.case_4 = Rect(66+c, 582+r, 593+c, 722+r)  # 4. Boss削弱
+        # self.case_5 = Rect(66+c*2, 582, 593+c*2, 722)  # 5. 生命值属性
+        # self.case_6 = Rect(66 + c*2, 582 + r, 593 + c*2, 722 + r)  # 6. 护甲值属性
+        # self.case_7 = Rect(2032, 410, 2550, 550)  # 7. 怒气型英雄
+        # self.case_8 = Rect(2032, 760, 2550, 900)  # 8. 法力型英雄
+        # self.case_9 = Rect(2032, 1110, 2550, 1250)  # 9. 能量型英雄
 
-        # 用这个来可控调节
-        self.point1 = self.case_8
-        self.point2 = self.case_9
+        # 科技树3
+        # 左半部分
+        self.case_1 = Rect(0, 582, 535, 716)  # 1. 守护者战力
+        self.case_2 = Rect(0, 930, 535, 1067)  # 2. 炉石效果
+        self.case_3 = Rect(621, 410, 1153, 545)  # 3. 怒气型英雄
+        self.case_4 = Rect(621, 760, 1150, 900)  # 4. 法力型英雄
+        self.case_5 = Rect(621, 1107, 1153, 1236)  # 5. 能量型英雄
+        self.case_6 = Rect(1302, 590, 1835, 719)  # 6. 首次战斗
+        self.case_7 = Rect(1300, 911, 1835, 1042)  # 7. 精准
+        self.case_8 = Rect(1971, 759, 2500, 900)    # 8. 魔法咒语
+
+        # 右半部分
+        self.case_9 = Rect(41, 582, 573, 719)  # 9. 坦克专精
+        self.case_10 = Rect(39, 936, 568, 1066)  # 10. 治疗专精
+        self.case_11 = Rect(697, 758, 1230, 893)  # 11. 输出专精
+        self.case_12 = Rect(1354, 413, 1892, 537)  # 12. 伤害值属性
+        self.case_13 = Rect(1354, 760, 1888, 886)  # 13. 生命值属性
+        self.case_14 = Rect(1354, 1105, 1888, 1235)  #  14. 护甲属性
+        self.case_15 = Rect(2016, 582, 2550, 726)  # 15. 金币雨
+        self.case_16 = Rect(2014, 931, 2540, 1066)  # 16. 所有主要属性
+
+        # 特殊情况下的点的坐标位置
+        self.case_100 = Rect(10, 581, 176, 722)  # 守护者战力
+        self.case_101 = Rect(2271, 592, 2552, 719)  # 坦克专精
+        self.case_102 = Rect(2274, 933, 2552, 1071)  # 治疗专精
+
+        # 用这个来可控调节需要进行升级的科技
+        self.point1 = self.case_15
+        self.point2 = self.case_16
 
     def back2main(self):
         logging.info("从图书馆界面返回到挂机界面")
@@ -213,7 +248,7 @@ class Map():
 
         # self.prior_tuple = [4, 2, 1, 0, 3, 5]  # 自定义优先级
         # self.prior_tuple = [0, 1, 2, 3, 4, 5]  # 最快的优先
-        self.prior_tuple = [2, 1, 5, 4, 3, 0]
+        self.prior_tuple = [5, 4, 3, 0, 1, 2]  # 最长的优先
         self.click_list = []
         self.mission_length = len(self.click_list)
         self.mission_queues = 4  # 最大任务队列数量
@@ -388,6 +423,16 @@ class Map():
             for item in self.pt_list_2[index]:
                 _list.append((True, item))
         logging.info(f"点击任务队列为:{_list}")
+        # reorder list
+        # 先做最左边会被覆盖的任务
+        threshold_w = 530
+        index_list = []
+        for index, item in enumerate(_list):
+            statue, (w, h) = item
+            if w < threshold_w:
+                index_list.append(index)
+        old_list = [i for i in range(len(_list)) if i not in index_list]
+        _list = [_list[index] for index in index_list + old_list]
 
         return _list
 
@@ -469,7 +514,8 @@ class Map():
         """查看地图任务是否有更新"""
         logging.info("检验地图任务是否有更新")
         now = datetime.datetime.now()
-        if now > self.next_fresh_time:
+        num = self.get_mission_done_num()
+        if now > self.next_fresh_time or num == 0:
             logging.info("地图任务已经更新")
             self.init_missions()
             self.next_fresh_time = self.get_next_refresh_time()
@@ -537,7 +583,9 @@ class Main():
         self.button_family = Rect(1870, 320, 2180, 570)  # 城镇界面中的工会按钮位置
         self.button_ride = Rect(237, 562, 495, 772)  # 工会界面中的远征按钮位置
         self.safe_area = Rect(2192, 1294, 2365, 1478)  # 城镇界面中的安全点击位置
-        self.map_suggest = Rect(2470, 518, 2545, 580)  # 地图提示，表示地图有更新
+        # update 2020-08-04, 更新了奖学金导致地图位置有变化
+        # self.map_suggest = Rect(2470, 518, 2545, 580)  # 地图提示，表示地图有更新
+        self.map_suggest = Rect(2480, 416, 2545, 478)
         self.img_suggest = cv2.imread(f"{root}{os.sep}guaji{os.sep}map_suggest.png")[..., ::-1]
         self.reconnect_img = cv2.imread(reconnect_path, 0)
         self.normal_img = cv2.imread(normal_path, 0)

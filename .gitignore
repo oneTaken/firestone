@@ -7,3 +7,6 @@ guard/
 .DS_Store
 *.png
 log.txt
+screen.png
+screen_map/
+__pycache__/
